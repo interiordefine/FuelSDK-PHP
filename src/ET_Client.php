@@ -98,7 +98,7 @@ class ET_Client extends SoapClient
 	 */
 	function __construct($getWSDL = false, $debug = false, $params = null) 
 	{
-		$tenantTokens = array();
+		$this->tenantTokens = array();
 		$config = false;
 
 		$this->xmlLoc = 'ExactTargetWSDL.xml';
@@ -642,7 +642,7 @@ class ET_Client extends SoapClient
 	function getAuthTokenExpiration($tenantKey) 
 	{
 		$tenantKey = $tenantKey == null ? $this->tenantKey : $tenantKey;
-		if ($this->tenantTokens[$tenantKey] == null) {
+		if (!isset($this->tenantTokens[$tenantKey]) || $this->tenantTokens[$tenantKey] == null) {
 			$this->tenantTokens[$tenantKey] = array();
 		}
 		return isset($this->tenantTokens[$tenantKey]['authTokenExpiration'])
